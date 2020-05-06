@@ -2,9 +2,11 @@ const { HTML_INPUT, DEST_FOLDER } = require('../config');
 const {
     src, dest, watch
 } = require('gulp');
+const replace = require('gulp-replace');
 
 function html() {
     return src(HTML_INPUT)
+        .pipe(replace('@@maps_api_key', process.env.MAPS_API_KEY))
         .pipe( dest(DEST_FOLDER) );
 }
 
