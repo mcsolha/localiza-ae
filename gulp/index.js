@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const { js, watchJs } = require('./tasks/javascript');
 const { css, watchCss } = require('./tasks/css');
 const { html, watchHtml } = require('./tasks/html');

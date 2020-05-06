@@ -1,5 +1,3 @@
-function hi() {
-    console.log('hiiii');
-}
+import hi from './js/hi';
 
 hi();
