@@ -1,0 +1,23 @@
+{
+  "name": "localiza-ae",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "gulp -L serve",
+    "tasks": "gulp --tasks",
+    "build": "gulp build"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "browserify": "^16.5.1",
+    "gulp": "^4.0.2",
+    "gulp-cli": "^2.2.0",
+    "gulp-debug": "^4.0.0",
+    "gulp-live-server": "^0.0.31",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify": "^3.0.2",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
+  },
+  "dependencies": {}
+}
