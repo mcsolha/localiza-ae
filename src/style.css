@@ -1,0 +1,23 @@
+:root {
+    --primary: #db7f67ff;
+    --secondary: #dbbea1ff;
+    --warning: #a37b73ff;
+    --danger: #d34f73ff;
+    --info: #d6a2ad;
+    --success: #a0af84;
+    --dark: #222222;
+    --light: #f2f2f2;
+    --gray: #dbdbdb;
+}
+
+html {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    height: 100%;
+    color: var(--light);
+    margin: 0;
+}
