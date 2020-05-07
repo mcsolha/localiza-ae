@@ -19,15 +19,23 @@
         </nav>
     
         <main class="localiza-app__content">
-            <div class="localiza-app__search-bar">
-                <input
-                    type="text"
-                    class="localiza-app__search-input"
-                    placeholder="Endereço"
-                >
+            <div class="localiza-app__search-bar-container">
+                <div class="localiza-app__search-bar">
+                    <input
+                        type="text"
+                        class="localiza-app__search-input hide"
+                        placeholder="Endereço"
+                    >
+                    <div class="localiza-app__separator"> </div>
+                    <div class="localiza-app__predicts-container">
+                        <ul class="localiza-app__predicts">
+
+                        </ul>
+                    </div>
+                </div>
             </div>
             <div id="map">
-                
+
             </div>
         </main>
     </div>
