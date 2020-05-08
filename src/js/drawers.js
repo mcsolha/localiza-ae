@@ -7,6 +7,7 @@ export function createMarker(title, position, onClick) {
     let marker = new google.maps.Marker({
         position,
         title,
+        animation: google.maps.Animation.BOUNCE,
     });
 
     if (onClick) {
