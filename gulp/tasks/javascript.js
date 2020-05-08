@@ -15,7 +15,9 @@ function js() {
     var b = browserify({
         entries: JS_INPUT,
         debug: true
-    }).transform('babelify', {presets: ['@babel/preset-env']});
+    }).transform('babelify', {
+        configFile: path.resolve(__dirname, '../../babel.config.json'),
+    });
 
     return b.bundle()
         .pipe(source('main.js'))
