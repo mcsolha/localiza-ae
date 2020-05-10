@@ -93,7 +93,7 @@ body {
     border-bottom-right-radius: 0;
 }
 
-.localiza-app__search-bar.active-search > .localiza-app__predicts-container,
+.localiza-app__search-bar.active-search > .localiza-app__predictions-container,
 .localiza-app__search-bar.active-search > .localiza-app__separator {
     display: block;
 }
@@ -116,7 +116,7 @@ input.localiza-app__search-input:focus {
     outline: none;
 }
 
-.localiza-app__predicts-container {
+.localiza-app__predictions-container {
     display: none;
     min-height: 50px;
     background-color: var(--white);
@@ -127,27 +127,27 @@ input.localiza-app__search-input:focus {
     border-top-left-radius: 0px;
 }
 
-.localiza-app__predicts {
+.localiza-app__predictions {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-.localiza-app__predict {
+.localiza-app__prediction {
     cursor: pointer;
 }
 
-.localiza-app__predict:last-child {
+.localiza-app__prediction:last-child {
     border-bottom-right-radius: var(--input-border-radius);;
     border-bottom-left-radius: var(--input-border-radius);;
 }
 
-.localiza-app__predict:hover {
+.localiza-app__prediction:hover {
     background-color: var(--light);
 }
 
-.localiza-app__predict > a,
-.localiza-app__predict-not-found > a {
+.localiza-app__prediction > a,
+.localiza-app__prediction-not-found > a {
     padding: 12px 20px;
     white-space: nowrap;
     display: flex;
@@ -157,17 +157,17 @@ input.localiza-app__search-input:focus {
     color: black;
 }
 
-.localiza-app__predict > a > i {
+.localiza-app__prediction > a > i {
     margin-right: 12px;
 }
 
-.localiza-app__predict > a > span {
+.localiza-app__prediction > a > span {
     overflow: hidden;
     display: block;
     text-overflow: ellipsis;
 }
 
-.localiza-app__predict--not-found:hover {
+.localiza-app__prediction--not-found:hover {
     background-color: unset;
     cursor: initial;
 }

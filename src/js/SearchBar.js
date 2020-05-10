@@ -1,10 +1,14 @@
 import {
-    addMultipleEventsListener, isEmptyString
+    addMultipleEventsListener, isEmptyString, createObservable
 } from "./helpers";
 import SearchInput from "./SearchInput";
+import PredictionList from "./PredictionList";
 
 
 function SearchBar({ localizaService, onPredictionChange = () => {} }) {
+    let state = createObservable({
+        predictions: [],
+    });
     let ref = document.getElementById('search-bar');
 
     function setActiveSearchClass(state) {
@@ -20,11 +24,17 @@ function SearchBar({ localizaService, onPredictionChange = () => {} }) {
             try {
                 let response = await localizaService.searchLocation(value);
 
+                state.predictions = response;
+
                 onPredictionChange(response);
             } catch (err) {
                 console.error(err);
             }
         },
+    });
+
+    PredictionList({
+        state,
     });
 
     addMultipleEventsListener(

@@ -1,7 +1,4 @@
 import { createMarker, createInfoWindow } from './js/drawers';
-import {
-    MAP_MARKER_ICON, SUBWAY_ICON, generatePredictItemHTML, PREDICT_NOT_FOUND
-} from './js/templates';
 import { geocode } from './js/geocoder';
 import SearchBar from './js/SearchBar';
 import LocalizaService from './js/LocalizaService';
@@ -52,68 +49,10 @@ function showInput() {
     searchInputEl.classList.remove('hide');
 }
 
-function renderPredictions(predictions) {
-    let ulEl = predictsContainer.firstElementChild;
-    ulEl.innerHTML = '';
-
-    if (!predictions) {
-        return ulEl.insertAdjacentHTML('beforeend', PREDICT_NOT_FOUND);
-    }
-
-    for (const prediction of predictions) {
-        let iconHTML = getIcon(prediction.types);
-        let liString = generatePredictItemHTML(iconHTML, prediction.description);
-        let el = document.createElement('div');
-
-        el.innerHTML = liString;
-        el.firstChild.addEventListener('click', predictionClickCallback(prediction));
-
-        ulEl.insertAdjacentElement('beforeend', el.firstChild);
-    }
-}
-
-function predictionClickCallback(prediction) {
-    return async (e) => {
-        console.log(prediction);
-        searchBarEl.classList.remove('active-search');
-
-        searchInputEl.value = prediction.description;
-
-        const { results: [ { geometry: { location } } ] } = await geocode(prediction.description);
-
-        if (marker) {
-            marker.setMap(null);
-        }
-
-        if (userMarker) {
-            userMarker.setMap(null);
-        }
-
-        marker = createMarker(prediction.description, location);
-
-        marker.setMap(map);
-
-        setTimeout(() => marker.setAnimation(null), 500);
-
-        map.setCenter(location);
-    };
-}
-
-function getIcon(types) {
-    if (types.includes('train_station') || types.includes('subway_station')) {
-        return SUBWAY_ICON;
-    }
-
-    return MAP_MARKER_ICON;
-}
-
 window.onMapsAPILoaded = function() {
     var localizaService = new LocalizaService();
 
-    SearchBar({
-        localizaService,
-        onPredictionChange: renderPredictions,
-    });
+    SearchBar({ localizaService });
 
     initMap();
     showInput();

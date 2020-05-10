@@ -1,6 +1,4 @@
 function SearchInput({ onInputChange }) {
-
-
     let ref = document.getElementById('search-input');
 
     function inputHandler({ target }) {
