@@ -87,6 +87,17 @@ body {
     border: 1px solid var(--gray);
 }
 
+.localiza-app__search-bar.active-search > input.localiza-app__search-input {
+    border-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.localiza-app__search-bar.active-search > .localiza-app__predicts-container,
+.localiza-app__search-bar.active-search > .localiza-app__separator {
+    display: block;
+}
+
 input.localiza-app__search-input {
     display: block;
     border-radius: var(--input-border-radius);;
@@ -105,12 +116,6 @@ input.localiza-app__search-input:focus {
     outline: none;
 }
 
-input.localiza-app__search-input.active-search {
-    border-bottom: 0;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
 .localiza-app__predicts-container {
     display: none;
     min-height: 50px;
@@ -120,11 +125,6 @@ input.localiza-app__search-input.active-search {
     border-top: 0;
     border-top-right-radius: 0px;
     border-top-left-radius: 0px;
-}
-
-input.localiza-app__search-input.active-search ~ .localiza-app__predicts-container,
-input.localiza-app__search-input.active-search ~ .localiza-app__separator {
-    display: block;
 }
 
 .localiza-app__predicts {
