@@ -7,9 +7,19 @@ const OUTPUT_FORMAT = 'json';
 const API_URL = BASE_URL + OUTPUT_FORMAT;
 
 export default class LocalizaService {
-    constructor() {
+    constructor(mapContainer) {
+        let sp = {lat: -23.5505199, lng: -46.63330939999999};
+
+        this.map = new google.maps.Map(mapContainer, {
+            center: sp,
+            zoom: 16,
+            fullscreenControl: false,
+            mapTypeControl: false,
+        });
+
         this.sessionToken = new google.maps.places.AutocompleteSessionToken();
         this.autocompleteService = new google.maps.places.AutocompleteService();
+        this.placesService = new google.maps.places.PlacesService(this.map);
     }
 
     searchLocation(input) {
@@ -39,12 +49,37 @@ export default class LocalizaService {
         let url = API_URL + queryString;
 
         try {
-            const response = await get(url);
+            let response = await get(url);
+            let { results, status } = JSON.parse(response);
 
-            return JSON.parse(response);
+            if (status === "OK") {
+                return results;
+            }
+
+            throw new Error(status);
         } catch (err) {
             console.error(err);
-            return {};
+            return [];
         }
+    }
+
+    async getPlaceDetails(placeId) {
+        return new Promise((resolve, reject) => {
+            let fields = ['name', 'rating', 'formatted_phone_number', 'photo'];
+            let request = {
+                placeId,
+                fields,
+            };
+
+            function detailsApiCallback(place, status) {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    return resolve(place);
+                }
+
+                return reject(status);
+            }
+
+            this.placesService.getDetails(request, detailsApiCallback);
+        });
     }
 }

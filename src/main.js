@@ -34,27 +34,16 @@ function showUserLocation() {
         }, err => alert(err.message));
 }
 
-function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: -34.397, lng: 150.644},
-        zoom: 16,
-        fullscreenControl: false,
-        mapTypeControl: false,
-    });
-
-    showUserLocation();
-}
-
 function showInput() {
     searchInputEl.classList.remove('hide');
 }
 
 window.onMapsAPILoaded = function() {
-    var localizaService = new LocalizaService();
+    let mapContainer = document.getElementById('map');
+    let localizaService = new LocalizaService(mapContainer);
 
     SearchBar({ localizaService });
 
-    initMap();
     showInput();
 };
 
