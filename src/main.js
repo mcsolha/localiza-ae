@@ -3,11 +3,12 @@ import {
     MAP_MARKER_ICON, SUBWAY_ICON, generatePredictItemHTML, PREDICT_NOT_FOUND
 } from './js/templates';
 import { geocode } from './js/geocoder';
+import SearchBar from './js/SearchBar';
+import LocalizaService from './js/LocalizaService';
 
-let map, autocompleteService;
+let map;
 let searchInputEl;
 let predictsContainer;
-let sessionToken;
 let searchBarEl;
 let marker;
 let userMarker;
@@ -29,7 +30,7 @@ function showUserLocation() {
             );
 
             userMarker.setMap(map);
-            
+
             setTimeout(() => userMarker.setAnimation(null), 500);
 
             map.setCenter(pos);
@@ -45,15 +46,6 @@ function initMap() {
     });
 
     showUserLocation();
-}
-
-function searchLocation(input) {
-    autocompleteService.getPlacePredictions({
-        input,
-        sessionToken,
-    }, (predictionsResponse, placeServiceStatus) => {
-        renderPredictions(predictionsResponse);
-    });
 }
 
 function showInput() {
@@ -72,7 +64,7 @@ function renderPredictions(predictions) {
         let iconHTML = getIcon(prediction.types);
         let liString = generatePredictItemHTML(iconHTML, prediction.description);
         let el = document.createElement('div');
-    
+
         el.innerHTML = liString;
         el.firstChild.addEventListener('click', predictionClickCallback(prediction));
 
@@ -116,8 +108,12 @@ function getIcon(types) {
 }
 
 window.onMapsAPILoaded = function() {
-    sessionToken = new google.maps.places.AutocompleteSessionToken();
-    autocompleteService = new google.maps.places.AutocompleteService();
+    var localizaService = new LocalizaService();
+
+    SearchBar({
+        localizaService,
+        onPredictionChange: renderPredictions,
+    });
 
     initMap();
     showInput();
@@ -127,38 +123,4 @@ document.addEventListener('DOMContentLoaded', () => {
     searchInputEl = document.querySelector('.localiza-app__search-input');
     predictsContainer = document.querySelector('.localiza-app__predicts-container');
     searchBarEl = document.querySelector('.localiza-app__search-input');
-    let mapEl = document.getElementById('map');
-
-    mapEl.addEventListener('mousedown', () => {
-        searchBarEl.classList.remove('active-search');
-    });
-
-    searchInputEl.addEventListener('input', (e) => {
-        let value = e.target.value.trim();
-
-        if (!value.length) {
-            return searchBarEl.classList.remove('active-search');
-        }
-        searchBarEl.classList.add('active-search');
-        searchLocation(value);
-    });
-
-    searchInputEl.addEventListener('focus', (e) => {
-        if (e.target.value.trim().length === 0) {
-            return;
-        }
-
-        searchBarEl.classList.add('active-search');
-    });
-
-    // document.addEventListener('click', (e) => {
-    //     if (!e.path.includes(searchBarContainer)) {
-    //         searchBarEl.classList.remove('active-search');
-    //     }
-    // })
-
-    // searchInputEl.addEventListener('focusout', (e) => {
-    //     console.log(e);
-    //     searchBarEl.classList.remove('active-search');
-    // })
 })
