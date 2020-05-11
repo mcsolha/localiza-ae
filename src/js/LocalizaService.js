@@ -37,22 +37,17 @@ function generateInfoWindowHTML({ title, address, imgUrl, phone, rating }) {
 
 export default class LocalizaService {
     constructor(mapContainer) {
-        let sp = {lat: -23.5505199, lng: -46.63330939999999};
+        let brazil = {lat: -14.235004, lng: -51.92528};
 
         this.map = new google.maps.Map(mapContainer, {
-            center: sp,
-            zoom: 16,
+            center: brazil,
+            zoom: 4,
             fullscreenControl: false,
             mapTypeControl: false,
         });
 
         this.infoWindow = new google.maps.InfoWindow({
             maxWidth: 300,
-        });
-
-        this.placeMarker({
-            position: sp,
-            title: 'São Paulo',
         });
 
         this.sessionToken = new google.maps.places.AutocompleteSessionToken();
@@ -150,5 +145,7 @@ export default class LocalizaService {
         });
 
         this.map.setCenter(position);
+
+        this.map.setZoom(16);
     }
 }
