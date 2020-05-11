@@ -50,7 +50,7 @@ export default class LocalizaService {
             maxWidth: 300,
         });
 
-        this.marker = this.placeMarker({
+        this.placeMarker({
             position: sp,
             title: 'São Paulo',
         });
