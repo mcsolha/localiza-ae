@@ -32,13 +32,19 @@ function Prediction({
             },
         }] = await localizaService.geocode(prediction.description);
 
-        let place = await localizaService.getPlaceDetails(place_id);
+        let {
+            formatted_address, name, photos, formatted_phone_number, rating
+        } = await localizaService.getPlaceDetails(place_id);
 
-        console.log(place);
+        console.log(formatted_phone_number);
 
         localizaService.placeMarker({
             position,
-            title: place.name,
+            title: name,
+            address: formatted_address,
+            imgUrl: photos && photos[0].getUrl({ maxWidth: 150, maxHeight: 150 }),
+            phone: formatted_phone_number,
+            rating,
         });
 
         onPredictionClick(prediction);

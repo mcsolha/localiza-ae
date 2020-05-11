@@ -184,3 +184,36 @@ input.localiza-app__search-input:focus {
         right: 60%;
     }
 }
+
+.info-window {
+    color: var(--dark);
+    font-size: 1rem;
+}
+
+.info-window > div:not(:last-child) {
+    margin-bottom: 12px;
+}
+
+.info-window__title {
+    font-size: 1.15rem;
+    font-weight: 400;
+}
+
+.info-window__image {
+    display: flex;
+    justify-content: center;
+}
+
+.info-window__additional-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+}
+
+.info-window__rating > i.fas.fa-star {
+    color: #ffd700;
+}
+
+.info-window__image > img {
+    box-shadow: 0px 0px 4px 0px black;
+}

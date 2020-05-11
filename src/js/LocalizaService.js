@@ -6,6 +6,36 @@ const OUTPUT_FORMAT = 'json';
 
 const API_URL = BASE_URL + OUTPUT_FORMAT;
 
+function generateInfoWindowHTML({ title, address, imgUrl, phone, rating }) {
+    console.log(phone);
+    let additionalInfoHTML = phone || rating
+        ? `<div class="info-window__additional-info">
+                ${rating
+                    ? `<div class="info-window__rating">
+                            <i class="fas fa-star"></i>
+                            <span>${rating}</span>
+                        </div>`
+                    : ''}
+                ${phone
+                    ? `<div class="info-window__phone">${phone}</div>`
+                    : ''}
+            </div>`
+        : '';
+
+    return `
+        <div class="info-window">
+            <div class="info-window__title">${title}</div>
+            <div class="info-window__address">${address}</div>
+            ${additionalInfoHTML}
+            ${imgUrl
+                ? `<div class="info-window__image">
+                        <img src="${imgUrl}" alt="Foto de ${title}"/>
+                    </div>`
+                : ''}
+        </div>
+    `
+}
+
 export default class LocalizaService {
     constructor(mapContainer) {
         let sp = {lat: -23.5505199, lng: -46.63330939999999};
@@ -15,6 +45,10 @@ export default class LocalizaService {
             zoom: 16,
             fullscreenControl: false,
             mapTypeControl: false,
+        });
+
+        this.infoWindow = new google.maps.InfoWindow({
+            maxWidth: 300,
         });
 
         this.marker = this.placeMarker({
@@ -70,7 +104,13 @@ export default class LocalizaService {
 
     async getPlaceDetails(placeId) {
         return new Promise((resolve, reject) => {
-            let fields = ['name', 'rating', 'formatted_phone_number', 'photo'];
+            let fields = [
+                'name',
+                'formatted_phone_number',
+                'photo',
+                'formatted_address',
+                'rating'
+            ];
             let request = {
                 placeId,
                 fields,
@@ -88,10 +128,14 @@ export default class LocalizaService {
         });
     }
 
-    placeMarker({ position, title }) {
+    placeMarker({ position, title, address, imgUrl, phone, rating }) {
         if (this.marker) {
             this.marker.setMap(null);
         }
+
+        let infoWindowContent = generateInfoWindowHTML({ title, address, imgUrl, phone, rating });
+
+        this.infoWindow.close();
 
         this.marker = new google.maps.Marker({
             position,
@@ -100,8 +144,12 @@ export default class LocalizaService {
             animation: google.maps.Animation.DROP,
         });
 
+        this.infoWindow.setContent(infoWindowContent);
+
+        this.marker.addListener('click', () => {
+            this.infoWindow.open(this.map, this.marker);
+        });
 
         this.map.setCenter(position);
     }
-
 }
