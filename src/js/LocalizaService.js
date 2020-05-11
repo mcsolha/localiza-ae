@@ -17,6 +17,11 @@ export default class LocalizaService {
             mapTypeControl: false,
         });
 
+        this.marker = this.placeMarker({
+            position: sp,
+            title: 'São Paulo',
+        });
+
         this.sessionToken = new google.maps.places.AutocompleteSessionToken();
         this.autocompleteService = new google.maps.places.AutocompleteService();
         this.placesService = new google.maps.places.PlacesService(this.map);
@@ -82,4 +87,21 @@ export default class LocalizaService {
             this.placesService.getDetails(request, detailsApiCallback);
         });
     }
+
+    placeMarker({ position, title }) {
+        if (this.marker) {
+            this.marker.setMap(null);
+        }
+
+        this.marker = new google.maps.Marker({
+            position,
+            title,
+            map: this.map,
+            animation: google.maps.Animation.DROP,
+        });
+
+
+        this.map.setCenter(position);
+    }
+
 }
