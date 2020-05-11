@@ -17,6 +17,16 @@ Then you can run the following commands to install some development dependencies
 
 Now you're good to go!
 
+#### DON'T FORGET
+
+To properly run you need to provide an Google Maps API in a `.env` file with the
+ name `MAPS_API_KEY`.
+
+The following APIs need to be enabled:
+  * Geocoding API
+  * Places API
+  * Maps JavaScript API
+
 ## Usage
 
 Just open a shell in the repo cloned on the previous step and run:
