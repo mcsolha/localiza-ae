@@ -6,13 +6,13 @@ An address finder developed using [Geocoding API](https://developers.google.com/
 
 First clone the repo to your machine with:
 ```
-	git clone https://github.com/mcsolha/localiza-ae.git
+    git clone https://github.com/mcsolha/localiza-ae.git
 ```
 
 Then you can run the following commands to install some development dependencies:
 ```
     cd ./localiza-ae
-	yarn install
+    yarn install
 ```
 
 Now you're good to go!
@@ -20,7 +20,9 @@ Now you're good to go!
 ## Usage
 
 Just open a shell in the repo cloned on the previous step and run:
-		yarn start
+```
+    yarn start
+```
 
 Now access [localhost:3000](http://localhost:3000) and voilà, up and running! 🎉
 
