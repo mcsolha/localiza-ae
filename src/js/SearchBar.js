@@ -8,6 +8,7 @@ import PredictionList from "./PredictionList";
 function SearchBar({ localizaService, onPredictionChange = () => {} }) {
     let state = createObservable({
         predictions: [],
+        inputValue: '',
     });
     let ref = document.getElementById('search-bar');
 
@@ -31,6 +32,7 @@ function SearchBar({ localizaService, onPredictionChange = () => {} }) {
                 console.error(err);
             }
         },
+        state,
     });
 
     PredictionList({

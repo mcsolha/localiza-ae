@@ -18,18 +18,20 @@ function getIcon(types) {
     return MAP_MARKER_ICON;
 }
 
-function Prediction({ prediction, container, localizaService }) {
+function Prediction({
+    prediction, container, localizaService, onPredictionClick = () => {}
+}) {
     let iconHTML = getIcon(prediction.types);
     let liString = predictTemplate(prediction.description, iconHTML);
 
-    function predictionClickCallback({ description }) {
+    function predictionClickCallback(prediction) {
         return async (e) => {
             let [{
                 place_id,
                 geometry: {
                     location: position,
                 },
-            }] = await localizaService.geocode(description);
+            }] = await localizaService.geocode(prediction.description);
 
             let place = await localizaService.getPlaceDetails(place_id);
 
@@ -39,6 +41,8 @@ function Prediction({ prediction, container, localizaService }) {
                 position,
                 title: place.name,
             });
+
+            onPredictionClick(prediction);
         };
     }
 
