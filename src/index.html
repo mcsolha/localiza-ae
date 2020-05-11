@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,13 +9,14 @@
     <link rel="stylesheet" href="style.css">
     <script async src="https://kit.fontawesome.com/a8f9720102.js" crossorigin="anonymous"></script>
     <script defer src="./main.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=@@maps_api_key&libraries=places&callback=onMapsAPILoaded"></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=@@maps_api_key&libraries=places&callback=onMapsAPILoaded"></script>
 </head>
+
 <body>
-    <div class="localiza-app">
+    <div id="localiza" class="localiza-app">
         <nav class="localiza-app__navbar elevation">
             <span class="localiza-app__app-title">
-                <i class="fas fa-map-pin"></i>
                 Localiza Ae!
             </span>
         </nav>
@@ -22,12 +24,7 @@
         <main class="localiza-app__content">
             <div class="localiza-app__search-bar-container">
                 <div id="search-bar" class="localiza-app__search-bar">
-                    <input
-                        id="search-input"
-                        type="text"
-                        class="localiza-app__search-input"
-                        placeholder="Endereço"
-                    >
+                    <input id="search-input" type="text" class="localiza-app__search-input" placeholder="Endereço">
                     <i id="clear-search" class="fas fa-times"></i>
                     <div class="localiza-app__separator"> </div>
                     <div class="localiza-app__predictions-container">
@@ -41,6 +38,49 @@
 
             </div>
         </main>
+
+        <div
+            id="localiza-interactions"
+            class="localiza-app__interactions"
+            data-open="false"
+        >
+            <div class="localiza-app__about">
+                <span>Desenvolvido por Matheus Solha</span>
+            </div>
+            <div class="localiza-app__about-separator">-</div>
+            <a
+                target="_blank"
+                rel="noopener"
+                href="https://github.com/mcsolha/localiza-ae"
+                class="localiza-app__interaction-button"
+            >
+                <i class="fab fa-github-alt" aria-hidden="true"></i>
+            </a>
+
+            <a
+                target="_blank"
+                rel="noopener"
+                href="https://github.com/mcsolha/localiza-ae/issues/new"
+                class="localiza-app__interaction-button"
+            >
+                <i class="fas fa-bug" aria-hidden="true"></i>
+            </a>
+
+            <div id="interaction-trigger" class="localiza-app__interactions-trigger">
+                <i class="fa-caret-right fas" aria-hidden="true"></i>
+            </div>
+        </div>
     </div>
+
+    <script>
+        (function() {
+            var interactionTriggerEl = document.getElementById('interaction-trigger');
+            var interactionsEl = document.getElementById('localiza-interactions');
+
+            interactionTriggerEl.addEventListener('click', function() {
+                interactionsEl.dataset.open = !(interactionsEl.dataset.open === 'true');
+            });
+        })();
+    </script>
 </body>
 </html>

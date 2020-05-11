@@ -49,6 +49,7 @@ body {
 
 .localiza-app__navbar {
     display: flex;
+    justify-content: space-between;
     padding: 1rem 2rem;
     background-color: var(--dark);
 }
@@ -60,6 +61,68 @@ body {
 
 .localiza-app__app-title i {
     margin-right: 8px;
+}
+
+.localiza-app__interactions {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    background-color: var(--dark);
+    color: var(--light);
+    bottom: 10vh;
+    left: 0;
+    max-width: 90vw;
+    transform: translateX(-93%);
+    transition: transform 0.8s ease-in-out;
+}
+
+.localiza-app__interactions[data-open="true"] {
+    transform: translateX(0);
+}
+
+.localiza-app__interactions > *:not(:last-child) {
+    margin-right: 12px;
+}
+
+#interaction-bug.localiza-app__interaction-button {
+    margin-right: 16px;
+}
+
+.localiza-app__interaction-button {
+    flex-shrink: 0;
+    cursor: pointer;
+    height: 25px;
+    width: 25px;
+    border-radius: 4px;
+    background-color: var(--primary);
+    color: var(--light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.localiza-app__about {
+    font-size: 0.9rem;
+    margin-left: 16px;
+    text-align: center;
+}
+
+.localiza-app__interactions-trigger {
+    display: flex;
+    cursor: pointer;
+    align-self: stretch;
+    align-items: center;
+    padding: 18px 10px;
+    background-color: var(--primary);
+}
+
+.localiza-app__interactions-trigger > i {
+    transition: transform 0.8s ease-in-out;
+}
+
+.localiza-app__interactions[data-open="true"] > .localiza-app__interactions-trigger > i {
+    transform: rotate(180deg);
 }
 
 .localiza-app__content {
