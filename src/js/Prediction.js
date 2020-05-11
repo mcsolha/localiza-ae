@@ -11,6 +11,10 @@ function predictTemplate(description = '', icon = '') {
 }
 
 function getIcon(types) {
+    if (!types) {
+        return '';
+    }
+
     if (types.includes('train_station') || types.includes('subway_station')) {
         return SUBWAY_ICON;
     }
@@ -53,7 +57,11 @@ function Prediction({
 
         let el = container.lastElementChild;
 
-        el.addEventListener('click', predictionClickCallback);
+        if (prediction.notFound) {
+            return el.classList.add('not-found');
+        }
+
+        return el.addEventListener('click', predictionClickCallback);
     }
 
     render();

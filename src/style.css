@@ -87,6 +87,21 @@ body {
     border: 1px solid var(--gray);
 }
 
+#clear-search {
+    display: none;
+    color: var(--dark);
+    position: absolute;
+    color: var(--dark);
+    top: 3px;
+    right: 0px;
+    font-size: 1.45rem;
+    padding: 4px 8px;
+}
+
+.localiza-app__search-bar.active-search > #clear-search {
+    display: inline-block;
+}
+
 .localiza-app__search-bar.active-search > input.localiza-app__search-input {
     border-bottom: 0;
     border-bottom-left-radius: 0;
@@ -103,7 +118,7 @@ input.localiza-app__search-input {
     border-radius: var(--input-border-radius);;
     border: 1px solid var(--gray);
     height: 1.25rem;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 2rem 0.5rem 1rem;
     font-size: 1rem;
     border: 0;
 }
@@ -146,8 +161,7 @@ input.localiza-app__search-input:focus {
     background-color: var(--light);
 }
 
-.localiza-app__prediction > a,
-.localiza-app__prediction-not-found > a {
+.localiza-app__prediction > a {
     padding: 12px 20px;
     white-space: nowrap;
     display: flex;
@@ -167,7 +181,7 @@ input.localiza-app__search-input:focus {
     text-overflow: ellipsis;
 }
 
-.localiza-app__prediction--not-found:hover {
+.localiza-app__prediction.not-found:hover {
     background-color: unset;
     cursor: initial;
 }

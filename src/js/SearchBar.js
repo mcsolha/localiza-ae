@@ -5,12 +5,19 @@ import SearchInput from "./SearchInput";
 import PredictionList from "./PredictionList";
 
 
-function SearchBar({ localizaService, onPredictionChange = () => {} }) {
+function SearchBar({ localizaService }) {
     let state = createObservable({
         predictions: [],
         inputValue: '',
     });
     let ref = document.getElementById('search-bar');
+    let clearSearchEl = document.getElementById('clear-search');
+
+    clearSearchEl.addEventListener('click', () => {
+        state.inputValue = '';
+        state.predictions = [];
+        setActiveSearchClass(false);
+    });
 
     function setActiveSearchClass(state) {
         return ref.classList[state ? 'add' : 'remove']('active-search');
@@ -29,9 +36,13 @@ function SearchBar({ localizaService, onPredictionChange = () => {} }) {
             let response = await localizaService.searchLocation(value);
 
             state.predictions = response;
-
-            onPredictionChange(response);
         } catch (err) {
+            if (err === 'ZERO_RESULTS') {
+                return state.predictions = [{
+                    description: 'Nenhum resultado encontrado!',
+                    notFound: true,
+                }];
+            }
             console.error(err);
         }
     }
