@@ -18,35 +18,27 @@ function getIcon(types) {
     return MAP_MARKER_ICON;
 }
 
-function Prediction({ prediction, container, onPredictionClick = () => {} }) {
+function Prediction({ prediction, container, localizaService }) {
     let iconHTML = getIcon(prediction.types);
     let liString = predictTemplate(prediction.description, iconHTML);
 
-    function predictionClickCallback(prediction) {
+    function predictionClickCallback({ description }) {
         return async (e) => {
-            onPredictionClick(prediction);
-            // console.log(prediction);
-            // searchBarEl.classList.remove('active-search');
+            let [{
+                place_id,
+                geometry: {
+                    location: position,
+                },
+            }] = await localizaService.geocode(description);
 
-            // searchInputEl.value = prediction.description;
+            let place = await localizaService.getPlaceDetails(place_id);
 
-            // const { results: [ { geometry: { location } } ] } = await geocode(prediction.description);
+            console.log(place);
 
-            // if (marker) {
-            //     marker.setMap(null);
-            // }
-
-            // if (userMarker) {
-            //     userMarker.setMap(null);
-            // }
-
-            // marker = createMarker(prediction.description, location);
-
-            // marker.setMap(map);
-
-            // setTimeout(() => marker.setAnimation(null), 500);
-
-            // map.setCenter(location);
+            localizaService.placeMarker({
+                position,
+                title: place.name,
+            });
         };
     }
 

@@ -35,6 +35,7 @@ function SearchBar({ localizaService, onPredictionChange = () => {} }) {
 
     PredictionList({
         state,
+        localizaService,
     });
 
     addMultipleEventsListener(

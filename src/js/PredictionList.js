@@ -3,10 +3,6 @@ import Prediction from './Prediction';
 function PredictionList({ state, localizaService }) {
     let ref = document.getElementById('prediction-list');
 
-    function onPredictionClick(prediction) {
-        console.log(prediction);
-    }
-
     function renderPredictions() {
         let { predictions } = state;
 
@@ -16,7 +12,7 @@ function PredictionList({ state, localizaService }) {
             prediction => Prediction({
                 prediction,
                 container: ref,
-                onPredictionClick,
+                localizaService,
             })
         );
     }
