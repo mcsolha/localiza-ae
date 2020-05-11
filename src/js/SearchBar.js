@@ -52,7 +52,9 @@ function SearchBar({ localizaService, onPredictionChange = () => {} }) {
         (event) => {
             event.stopPropagation();
 
-            setActiveSearchClass(true);
+            if (state.predictions.length) {
+                setActiveSearchClass(true);
+            }
         }
     );
 
