@@ -24,26 +24,24 @@ function Prediction({
     let iconHTML = getIcon(prediction.types);
     let liString = predictTemplate(prediction.description, iconHTML);
 
-    function predictionClickCallback(prediction) {
-        return async (e) => {
-            let [{
-                place_id,
-                geometry: {
-                    location: position,
-                },
-            }] = await localizaService.geocode(prediction.description);
+    async function predictionClickCallback() {
+        let [{
+            place_id,
+            geometry: {
+                location: position,
+            },
+        }] = await localizaService.geocode(prediction.description);
 
-            let place = await localizaService.getPlaceDetails(place_id);
+        let place = await localizaService.getPlaceDetails(place_id);
 
-            console.log(place);
+        console.log(place);
 
-            localizaService.placeMarker({
-                position,
-                title: place.name,
-            });
+        localizaService.placeMarker({
+            position,
+            title: place.name,
+        });
 
-            onPredictionClick(prediction);
-        };
+        onPredictionClick(prediction);
     }
 
     function render() {
@@ -51,39 +49,10 @@ function Prediction({
 
         let el = container.lastElementChild;
 
-        el.addEventListener('click', predictionClickCallback(prediction));
+        el.addEventListener('click', predictionClickCallback);
     }
 
     render();
 }
 
 export default Prediction;
-
-
-
-function predictionClickCallback(prediction) {
-    return async (e) => {
-        console.log(prediction);
-        searchBarEl.classList.remove('active-search');
-
-        searchInputEl.value = prediction.description;
-
-        const { results: [ { geometry: { location } } ] } = await geocode(prediction.description);
-
-        if (marker) {
-            marker.setMap(null);
-        }
-
-        if (userMarker) {
-            userMarker.setMap(null);
-        }
-
-        marker = createMarker(prediction.description, location);
-
-        marker.setMap(map);
-
-        setTimeout(() => marker.setAnimation(null), 500);
-
-        map.setCenter(location);
-    };
-}

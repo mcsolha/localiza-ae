@@ -27,3 +27,16 @@ export function createObservable(target) {
 
     return observable;
 }
+
+export function debounce(fnc, mili) {
+    let timeout;
+
+    return function () {
+        let args = arguments;
+        let context = this;
+
+        clearTimeout(timeout);
+
+        timeout = setTimeout(() => fnc.apply(context, args), mili);
+    };
+}

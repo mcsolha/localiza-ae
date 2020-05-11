@@ -1,5 +1,5 @@
 import {
-    addMultipleEventsListener, isEmptyString, createObservable
+    addMultipleEventsListener, isEmptyString, createObservable, debounce
 } from "./helpers";
 import SearchInput from "./SearchInput";
 import PredictionList from "./PredictionList";
@@ -16,22 +16,28 @@ function SearchBar({ localizaService, onPredictionChange = () => {} }) {
         return ref.classList[state ? 'add' : 'remove']('active-search');
     }
 
+    async function searchLocation(value) {
+        let isEmptyValue = isEmptyString(value);
+
+        setActiveSearchClass(!isEmptyValue);
+
+        if (isEmptyValue) {
+            return state.predictions = [];
+        }
+
+        try {
+            let response = await localizaService.searchLocation(value);
+
+            state.predictions = response;
+
+            onPredictionChange(response);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     SearchInput({
-        onInputChange: async function (value) {
-            let isEmptyValue = isEmptyString(value);
-
-            setActiveSearchClass(!isEmptyValue);
-
-            try {
-                let response = await localizaService.searchLocation(value);
-
-                state.predictions = response;
-
-                onPredictionChange(response);
-            } catch (err) {
-                console.error(err);
-            }
-        },
+        onInputChange: debounce(searchLocation, 250),
         state,
     });
 
