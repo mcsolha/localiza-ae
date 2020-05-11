@@ -6,18 +6,14 @@ export function get(url) {
 
         request.onload = function () {
             if (this.status >= 200 && this.status < 300) {
-                return resolve(request.response);
+                return resolve(this.response);
             }
 
-            console.log('this.status: ', this.status);
-            console.log('request.status: ', request.status);
-            console.log('this.statusText: ', this.statusText);
-            console.log('request.statusText: ', request.statusText);
-                
+
             reject({
                 status: this.status,
-                message: request.statusText
-            })
+                message: this.statusText
+            });
         };
 
         request.send();

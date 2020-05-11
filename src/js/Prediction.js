@@ -36,8 +36,6 @@ function Prediction({
             formatted_address, name, photos, formatted_phone_number, rating
         } = await localizaService.getPlaceDetails(place_id);
 
-        console.log(formatted_phone_number);
-
         localizaService.placeMarker({
             position,
             title: name,

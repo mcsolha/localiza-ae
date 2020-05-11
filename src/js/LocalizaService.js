@@ -7,7 +7,6 @@ const OUTPUT_FORMAT = 'json';
 const API_URL = BASE_URL + OUTPUT_FORMAT;
 
 function generateInfoWindowHTML({ title, address, imgUrl, phone, rating }) {
-    console.log(phone);
     let additionalInfoHTML = phone || rating
         ? `<div class="info-window__additional-info">
                 ${rating
